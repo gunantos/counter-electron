@@ -1,0 +1,55 @@
+{
+  "name": "pandingmessin",
+  "version": "2.0.0",
+  "description": "Aplikasi panding mesin terbaru",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build": "build"
+  },
+  "build": {
+    "appId": "morait.counter.com",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "publisherName": "APP KITA",
+      "publish": [
+        "github"
+      ],
+      "target": [
+        "nsis"
+    ],
+      "icon": "public/icon.ico"
+    }
+  },
+  "repository": "https://github.com/gunantos/counter-electron",
+  "keywords": [],
+  "author": "Gunanto Simamora",
+  "devDependencies": {
+    "electron": "^9.1.0",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "electron-pos-printer": "^1.2.0"
+  }
+}

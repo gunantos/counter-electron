@@ -1,0 +1,135 @@
+<!-- 
+  @Author: Gunanto Simamora
+  @Date:   2020-10-09 21:26:45
+  @Last Modified by:   Your name
+  @Last Modified time: 2021-05-22 05:12:10
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <m eta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+
+  <title>Checking</title>
+  
+  <link href="../src/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="../src/style.css" rel="stylesheet">
+  <style type="text/css" media="print">
+    @page {
+      size: 58cm 58cm;
+      margin: 0
+    }
+    
+    @media print {
+      .pagebreak {
+        page-break-after: always;
+        clear: both
+      }
+
+      body,
+      html {
+        display: block;
+        font-family: Calibri;
+        margin: 0
+      }
+
+      .page {
+        display: block;
+        max-width: 300px;
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always
+      }
+    }
+
+    @media print {
+
+      .no-print,
+      .no-print * {
+        display: none !important
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <center>
+    <div class="heading">ANTRIAN</div>
+    <div class="subheading" id="tanggal"></div>
+    <div class="body">
+      <div class="card" id="cartAntrian" onClick="saveAntrian()" style="width: 22rem;">
+  <div class="card-body">
+    
+    <h5 class="card-title" id="title-data">ANTRIAN <span id="typeAntrian"></span></h5>
+    <p class="card-text angka-antrian">1</p>
+    <h6 class="card-subtitle mb-2 text-muted">Total Antrian <span id="ttl_antrian">12</span></h6>
+  </div>
+</div>
+    </div>
+    <button type="button" class="btn btn-outline-primary btn-pengaturan" data-bs-toggle="modal" data-bs-target="#myModal">Pengaturan</button>
+  </center>
+  <div class="modal" id="myModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pengaturan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <select id="list_printers" class="form-select" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+        </select>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Antrian untuk</label>
+           <select class="form-select" id="typeAntrian" aria-label="Default select example">
+          <option selected>Pilih Tipe</option>
+          <option value="genose">GeNose</option>
+          <option value="rta">Rapid Test Antigen</option>
+        </select>
+        </div>
+
+       
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Max Data</label>
+          <input type="text"  min="0" id="maxData" class="form-control" id="formGroupExampleInput">
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Mulai Dari</label>
+          <input type="number" min="1" id="mulaidari" class="form-control" id="formGroupExampleInput">
+        </div>
+        <div class="mb-3">
+          <label for="formGroupExampleInput" class="form-label">Width</label>
+          <input type="number"  min="0" id="widthpage" class="form-control" id="formGroupExampleInput">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onClick="savePengaturan();">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../src/jquery.js"></script>
+  <script src="../src/js/bootstrap.bundle.js"></script>
+<script src="../renderer.js"></script>
+
+<script src="../src/index.js"></script>
+</body>
+
+</html>
