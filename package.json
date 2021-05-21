@@ -40,9 +40,19 @@
         "nsis"
     ],
       "icon": "public/icon.ico"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "gunantos",
+        "repo": "counter-electron",
+        "vPrefixedTagName": true,
+        "private": true,
+        "releaseType": "draft"
+      }
+    ]
   },
-  "repository": "https://github.com/gunantos/counter-electron",
+  "repository": "https://github.com/gunantos/counter-electron.git",
   "keywords": [],
   "author": "Gunanto Simamora",
   "devDependencies": {
