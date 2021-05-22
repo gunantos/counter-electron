@@ -109,13 +109,11 @@ function buildView() {
     $('#widthpage').val(_pengaturan.width);
     $('#angkaAntrian').html(cur + 1)
     if (ttl < 1) {
-        $('#cartAntrian').attr({ disabled: true });
+        $('#cartAntrian').hide();
         $('#cartAntrian').attr({ onclick: null });
-        $('#cartAntrian').removeClass('card');
     } else {
-        $('#cartAntrian').attr({ disabled: false });
+        $('#cartAntrian').show();
         $('#cartAntrian').attr({ onclick: "saveAntrian()" });
-        $('#cartAntrian').addClass('card');
     }
 
 }
