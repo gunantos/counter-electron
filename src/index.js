@@ -1,4 +1,5 @@
 "use strict";
+const ARRBULAN = ['JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI', 'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'];
 var _tglSekarang = '';
 var _listAntrian = [];
 var _listPengaturan = [];
@@ -19,6 +20,15 @@ var myModal = document.getElementById('myModal')
 $(document).ready(function() {
     buildView();
 });
+
+function tglToString(tgl) {
+    var ar = tgl.split('-');
+    var thn = ar[0];
+    var bln = ar[1];
+    var tgl = ar[2];
+    return tgl + ' ' + ARRBULAN[(parseInt(bln) - 1)] + ' ' + thn;
+}
+
 function isEmpty(val) {
     var cek = (val !== undefined && val !== null && val !== '') ? false : true;
     return cek;
@@ -57,7 +67,7 @@ function getAntrian() {
 
 function getPengaturan() {
     var dbPengaturan = getListPengaturan();
-     const ind2 = _listPengaturan.findIndex(el => el.tanggal == getNow());
+     const ind2 = dbPengaturan.findIndex(el => el.tanggal == getNow());
     if (ind2 !== undefined && ind2 > -1) {
         _pengaturan = _listPengaturan[ind2]
     } else {
@@ -80,17 +90,24 @@ function buildView() {
     var max = parseInt(_pengaturan.max);
     var cur = parseInt(_antrian.counter);
     var ttl = max - cur;
-    $('#tanggal').html(getNow())
+    var gambarButton = 'genose.png';
+    if (_pengaturan.type.toUpperCase() == 'GENOSE') {
+        gambarButton = 'genose.png';
+    } else {
+        gambarButton = 'rapid.svg';
+    }
+    $('#tanggal').html(tglToString(getNow()))
     $('#typeAntrian').html(isEmpty(_pengaturan.type) ? '' : _pengaturan.type)
     $('#ttl_antrian').html(ttl)
     $('#noAntrian').html(cur)
+    $('#gambarRapid').attr('src', gambarButton);
     
     $('#list_printers').val(_pengaturan.printer);
-    $('#typeAntrian').val(_pengaturan.type);
+    $('#sel-type-antrian').val(_pengaturan.type);
     $('#maxData').val(max);
-    $('#mulaidari').val(_pengaturan.start);
+    $('#mulaidari').val(cur + 1);
     $('#widthpage').val(_pengaturan.width);
-    
+    $('#angkaAntrian').html(cur + 1)
     if (ttl < 1) {
         $('#cartAntrian').attr({ disabled: true });
         $('#cartAntrian').attr({ onclick: null });
@@ -127,7 +144,7 @@ var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
 
 function savePengaturan() {
     var printer = $('#list_printers').val();
-    var typeAntrian = $('#typeAntrian').val();
+    var typeAntrian = $('#sel-type-antrian').val();
     var maxData = $('#maxData').val();
     var mulaidari = $('#mulaidari').val();
     var widthpage = $('#widthpage').val();
@@ -146,9 +163,14 @@ function savePengaturan() {
     }
     _listPengaturan.push(_pengaturan);
     localStorage.setItem('listPengaturan', JSON.stringify(_listPengaturan));
-    
-    if (parseInt(mulaidari) > 1) {
-        saveAntrian(mulaidari);
+    if (mulaidari != '') {
+        _antrian.counter = parseInt(mulaidari)
+        const ind1 = _listAntrian.findIndex(el => el.tanggal == _tglSekarang && el.type == _antrian.type);
+        if (ind1 !== undefined && ind1 > -1) {
+            _listAntrian.splice(ind1, 1);
+        }
+        _listAntrian.push(_antrian);
+        localStorage.setItem('listAntrian', JSON.stringify(_listAntrian));
     }
 
     buildView();
@@ -177,15 +199,12 @@ function saveAntrian(c = null) {
 }
 
 function printTicket() {
-    const style_label = 'text-align: center; margin-top: 0px; margin-left: 5px; font-size: 14px;font-weight: 900;';
+    const style_label = 'text-align: center; margin-top: 0px;  font-size: 14px;font-weight: 900;';
     var d = new Date();
     var strDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + ' (' + d.getHours() + ':' + d.getMinutes() + ')';
+    var si = _pengaturan.width * 30 / 100;
+    var wi = _pengaturan.width - si;
      const data = [
-        {
-            type: 'text',
-            value: 'ANTRIAN ' + _antrian.type,
-            style: style_label,
-        },
         {
             type: 'text', 
             value: 'TERMINAL TERPADU PULO GEBANG',
@@ -195,11 +214,16 @@ function printTicket() {
             type: 'text', 
             value: strDate,
             style: style_label
-        },               
+         },
+        {
+            type: 'text',
+            value: _antrian.type,
+            style: 'text-align: center; margin-top: 10px;font-size: 20px;font-weight: 900;border: 1px solid #000;',
+        },
          {
              type: 'text',
              value: _antrian.counter,
-             style: 'text-align: center; margin-top:  10px, font-size: 40px; font-weight: 9000'
+             style: 'text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 144px;font-weight: 900;border: 1px solid #000;'
         }
     ]
      print(data, _pengaturan.printer, _pengaturan.width+ "px")

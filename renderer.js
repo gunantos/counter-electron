@@ -2,7 +2,7 @@
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:20:50
  * @Last Modified by:   Your name
- * @Last Modified time: 2021-05-22 05:03:38
+ * @Last Modified time: 2021-05-22 05:40:34
  */
 let { remote } = require("electron");
 // console.log(process.versions.electron);
@@ -16,14 +16,16 @@ let webContents = remote.getCurrentWebContents();
 let printers = webContents.getPrinters(); //list the printers
 console.log(printers);
 
+  var options = `
+    <option selected>Pilih Printer</option>`;
 printers.map((item, index) => {
   //write in the screen the printers for choose
-  document.getElementById("list_printers").innerHTML = `
-    <option selected>Pilih Printer</option>
+  options += `
     <option value="${item.name}">${item.name}</option>
   `;
 });
 
+  document.getElementById("list_printers").innerHTML = options;
 function print(d, printerName, widthPage) {
   const options = {
     preview: false, // Preview in window or print

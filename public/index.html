@@ -2,7 +2,7 @@
   @Author: Gunanto Simamora
   @Date:   2020-10-09 21:26:45
   @Last Modified by:   Your name
-  @Last Modified time: 2021-05-22 05:12:10
+  @Last Modified time: 2021-05-22 06:20:42
 -->
 <!doctype html>
 <html lang="en">
@@ -69,15 +69,15 @@
 
 <body>
   <center>
-    <div class="heading">ANTRIAN</div>
+    <div class="heading"  id="typeAntrian">ANTRIAN</div>
     <div class="subheading" id="tanggal"></div>
     <div class="body">
-      <div class="card" id="cartAntrian" onClick="saveAntrian()" style="width: 22rem;">
-  <div class="card-body">
+      <div class="card text-white bg-primary" id="cartAntrian" onClick="saveAntrian()">
+        <img src="..." class="card-img" id="gambarRapid" alt="...">
+  <div class="card-body card-img-overlay">
     
-    <h5 class="card-title" id="title-data">ANTRIAN <span id="typeAntrian"></span></h5>
-    <p class="card-text angka-antrian">1</p>
-    <h6 class="card-subtitle mb-2 text-muted">Total Antrian <span id="ttl_antrian">12</span></h6>
+    <div class="card-text angka-antrian"><span id="angkaAntrian">1</span></div>
+    <h6 class="card-subtitle mb-2 heade-info">TOTAL ANTRIAN <span id="ttl_antrian">12</span></h6>
   </div>
 </div>
     </div>
@@ -96,10 +96,10 @@
         </select>
         <div class="mb-3">
           <label for="formGroupExampleInput" class="form-label">Antrian untuk</label>
-           <select class="form-select" id="typeAntrian" aria-label="Default select example">
+           <select class="form-select" id="sel-type-antrian" aria-label="Default select example">
           <option selected>Pilih Tipe</option>
-          <option value="genose">GeNose</option>
-          <option value="rta">Rapid Test Antigen</option>
+          <option value="GENOSE">GeNose</option>
+          <option value="RAPID TEST ANTIGEN">Rapid Test Antigen</option>
         </select>
         </div>
 

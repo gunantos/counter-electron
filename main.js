@@ -1,8 +1,8 @@
 /*
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:02:09
- * @Last Modified by:   Your name
- * @Last Modified time: 2021-05-22 03:01:24
+ * @Last Modified by: Gunanto Simamora
+ * @Last Modified time: 2021-05-22 08:02:14
  */
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, globalShortcut } = require("electron");
@@ -15,11 +15,11 @@ function createWindow() {
     height: 700,
     minimizable: false,
     closable: false,
-    fullscreen: false,
-    skipTaskbar: false,
-    autoHideMenuBar: false,
-    kiosk: false,
-   // titleBarStyle: 'hidden',
+    fullscreen: true,
+    skipTaskbar: true,
+    autoHideMenuBar: true,
+    kiosk: true,
+   titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true, 
@@ -31,7 +31,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadFile("public/index.html");
   
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
