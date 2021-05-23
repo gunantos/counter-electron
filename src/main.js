@@ -2,7 +2,7 @@
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:02:09
  * @Last Modified by:   Your name
- * @Last Modified time: 2021-05-23 16:20:36
+ * @Last Modified time: 2021-05-23 16:23:46
  */
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, globalShortcut, ipcMain } = require("electron");
@@ -32,7 +32,7 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadFile("public/index.html");
   
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
