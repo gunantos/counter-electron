@@ -2,7 +2,7 @@
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:20:50
  * @Last Modified by:   Your name
- * @Last Modified time: 2021-05-23 16:05:18
+ * @Last Modified time: 2021-05-23 16:17:49
  */
 const { remote, ipcRenderer } = require("electron");
 // console.log(process.versions.electron);
@@ -27,7 +27,6 @@ ipcRenderer.send('app_version');
     });
 let webContents = remote.getCurrentWebContents();
 let printers = webContents.getPrinters(); //list the printers
-console.log(printers);
 
   var options = `
     <option selected>Pilih Printer</option>`;
