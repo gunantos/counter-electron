@@ -1,5 +1,5 @@
 {
-  "name": "counter",
+  "name": "electron-antrian",
   "version": "1.0.0",
   "description": "Aplikasi antrian mengunakan Eelctron, aplikasi ini menyimpan data di Store Chrome",
   "main": "main.js",
