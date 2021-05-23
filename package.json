@@ -10,37 +10,6 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
-  "build": {
-    "appId": "appkita.antrian.com",
-    "productName": "Aplikasi Antrian",
-    "win": {
-      "publisherName": "APP KITA",
-      "publish": [
-        "github"
-      ],
-      "target": [
-        "nsis"
-      ],
-      "icon": "public/ico2.ico"
-    },
-    "artifactName": "Antrian_${version}_Setup.${ext}",
-    "nsis": {
-        "oneClick": false,
-        "perMachine": false, 
-        "allowToChangeInstallationDirectory": true
-     },
-     "forceCodeSigning": false,
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "gunantos",
-        "repo": "electron-antrian",
-        "vPrefixedTagName": true,
-        "private": false,
-        "releaseType": "draft"
-      }
-    ]
-  },
   "repository": "https://github.com/gunantos/electron-antrian.git",
   "keywords": [],
   "author": {
@@ -50,10 +19,27 @@
   },
   "devDependencies": {
     "electron": "^9.1.0",
-    "electron-builder": "^22.9.1"
+    "electron-builder": "^22.9.1",
+    "@electron-forge/publisher-github": "^6.0.0-beta.56"
   },
   "dependencies": {
     "electron-pos-printer": "^1.2.0",
     "electron-updater": "^4.3.9"
+  },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "gunantos",
+              "name": "electron-antrian"
+            },
+            "draft": true
+          }
+        }
+      ]
+    }
   }
 }
