@@ -1,3 +1,4 @@
 node_modules
 dist
-release.yml
+electron-builder.yml
+*.yml

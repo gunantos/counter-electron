@@ -2,7 +2,7 @@
   @Author: Gunanto Simamora
   @Date:   2020-10-09 21:26:45
   @Last Modified by:   Your name
-  @Last Modified time: 2021-05-22 06:20:42
+  @Last Modified time: 2021-05-23 15:17:12
 -->
 <!doctype html>
 <html lang="en">
@@ -21,9 +21,9 @@
 
   <title>Checking</title>
   
-  <link href="../src/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
   
-  <link href="../src/style.css" rel="stylesheet">
+  <link href="./style.css" rel="stylesheet">
   <style type="text/css" media="print">
     @page {
       size: 58cm 58cm;
@@ -63,12 +63,34 @@
         display: none !important
       }
     }
-
+#notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 200px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.hidden {
+  display: none;
+}
   </style>
 </head>
 
 <body>
   <center>
+    <div id="notification" class="hidden">
+    <p id="message"></p>
+      <button id="close-button" onClick="closeNotification()">
+        Close
+      </button>
+      <button id="restart-button" onClick="restartApp()" class="hidden">
+        Restart
+      </button>
+    </div>
+    
     <div class="heading"  id="typeAntrian">ANTRIAN</div>
     <div class="subheading" id="tanggal"></div>
     <div class="body">
@@ -125,8 +147,8 @@
   </div>
 </div>
 
-<script src="../src/jquery.js"></script>
-  <script src="../src/js/bootstrap.bundle.js"></script>
+<script src="./jquery.js"></script>
+  <script src="./js/bootstrap.bundle.js"></script>
 <script src="../renderer.js"></script>
 
 <script src="../src/index.js"></script>

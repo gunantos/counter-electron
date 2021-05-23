@@ -2,19 +2,18 @@
   "name": "electron-antrian",
   "version": "1.0.0",
   "description": "Aplikasi antrian mengunakan Eelctron, aplikasi ini menyimpan data di Store Chrome",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
-    "build": "electron-builder",
-    "build:release": "electron-builder -p always",
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
-  "repository": "https://github.com/gunantos/electron-antrian.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gunantos/electron-antrian"
+  },
   "keywords": [],
   "author": {
     "name": "Gunanto Simamora",
@@ -22,57 +21,11 @@
     "url": "https://app-kita.com"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "@electron-forge/publisher-github": "^6.0.0-beta.54",
     "electron": "^9.1.0",
     "electron-builder": "^22.9.1"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
     "electron-pos-printer": "^1.2.0",
     "electron-updater": "^4.3.9"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirre",
-          "config": {
-            "name": "electron_antrian"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "publishers": [
-        {
-          "name": "@electron-forge/publisher-github",
-          "config": {
-            "repository": {
-              "owner": "gunantos",
-              "name": "electron-antrian"
-            },
-            "draft": true
-          }
-        }
-      ]
-    }
   }
 }
