@@ -58,6 +58,11 @@
 <br>
 <br>
 <br>
+<% if (!process.browser) { %>
+      <script>
+        if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+      </script>
+    <% } %>
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
   </body>

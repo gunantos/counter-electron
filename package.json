@@ -1,65 +1,55 @@
 {
   "name": "counter",
   "version": "1.0.0",
-  "description": "Aplikasi Counter by APP KITA",
+  "description": "Aplikasi antrian mengunakan Eelctron, aplikasi ini menyimpan data di Store Chrome",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "build": "electron-builder",
+    "build:release": "electron-builder -p always",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
-    "build": "build"
+    "dist": "electron-builder"
   },
   "build": {
-    "appId": "appkita.counter.com",
-    "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
-        },
-        {
-          "x": 240,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    },
+    "appId": "appkita.antrian.com",
+    "productName": "Aplikasi Antrian",
     "win": {
-      "publisherName": "APP KITA",
-      "publish": [
-        "github"
-      ],
       "target": [
         "nsis"
       ],
-      "icon": "public/icon.ico"
+      "icon": "public/ico2.ico"
     },
+    "artifactName": "Antrian_${version}_Setup.${ext}",
+    "nsis": {
+        "oneClick": false,
+        "perMachine": false, 
+        "allowToChangeInstallationDirectory": true
+     },
+     "forceCodeSigning": false,
     "publish": [
       {
         "provider": "github",
         "owner": "gunantos",
-        "repo": "counter-electron",
+        "repo": "electron-antrian",
         "vPrefixedTagName": true,
-        "private": true,
+        "private": false,
         "releaseType": "draft"
       }
     ]
   },
-  "repository": "https://github.com/gunantos/counter-electron.git",
+  "repository": "https://github.com/gunantos/electron-antrian.git",
   "keywords": [],
-  "author": "Gunanto Simamora",
+  "author": {
+    "name": "Gunanto Simamora",
+    "email": "gunanto.simamora@gmail.com",
+    "url": "https://app-kita.com"
+  },
   "devDependencies": {
     "electron": "^9.1.0",
     "electron-builder": "^22.9.1"
   },
   "dependencies": {
-    "electron-pos-printer": "^1.2.0"
+    "electron-pos-printer": "^1.2.0",
+    "electron-updater": "^4.3.9"
   }
 }
