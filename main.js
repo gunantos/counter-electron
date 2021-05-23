@@ -2,13 +2,12 @@
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:02:09
  * @Last Modified by: Gunanto Simamora
- * @Last Modified time: 2021-05-23 13:07:52
+ * @Last Modified time: 2021-05-23 14:34:47
  */
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, globalShortcut } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
-import logger from 'electron-log'
 
 function createWindow() {
   // Create the browser window.
@@ -57,34 +56,6 @@ app.whenReady().then(() => {
   });
 });
 
-autoUpdater.channel = 'latest'
-autoUpdater.allowDowngrade = false
-autoUpdater.logger = logger
-autoUpdater.logger.transports.file.level = 'silly'
-autoUpdater.logger.transports.file.appName = 'electron-counter'
-autoUpdater.on('update-downloaded', () => {
-  dialog.showMessageBox({
-    message: 'update Downloaded !!'
-  })
-})
-autoUpdater.on('checking-for-update', () => {
-  dialog.showMessageBox({
-    message: 'CHECKING FOR UPDATES !!'
-  })
-})
-autoUpdater.on('update-available', () => {
-  dialog.showMessageBox({
-    message: ' update-available !!'
-  })
-})
-
-autoUpdater.on('error', (error) => {
-  autoUpdater.logger.debug(error)
-})
-
-app.on('ready', () => {
-  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
-})
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
