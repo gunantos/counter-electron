@@ -2,19 +2,29 @@
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:20:50
  * @Last Modified by:   Your name
- * @Last Modified time: 2021-05-23 15:18:00
+ * @Last Modified time: 2021-05-23 16:05:18
  */
-let { remote } = require("electron");
+const { remote, ipcRenderer } = require("electron");
 // console.log(process.versions.electron);
 
 const { PosPrinter } = remote.require("electron-pos-printer");
 // const {PosPrinter} = require("electron-pos-printer"); //dont work in production (??)
 
 const path = require("path");
-const notification = document.getElementById('notification');
+const notification = new bootstrap.Modal(document.getElementById('notification'), {
+  backdrop: false,
+  keyboard: false,
+  focus: true
+});
+
 const message = document.getElementById('message');
 const restartButton = document.getElementById('restart-button');
-
+const version = document.getElementById('version');
+ipcRenderer.send('app_version');
+    ipcRenderer.on('app_version', (event, arg) => {
+      ipcRenderer.removeAllListeners('app_version');
+      version.innerText = 'Version ' + arg.version;
+    });
 let webContents = remote.getCurrentWebContents();
 let printers = webContents.getPrinters(); //list the printers
 console.log(printers);
@@ -53,20 +63,20 @@ function print(d, printerName, widthPage) {
 ipcRenderer.on('update_available', () => {
   ipcRenderer.removeAllListeners('update_available');
   message.innerText = 'A new update is available. Downloading now...';
-  notification.classList.remove('hidden');
+  notification.show();
 });
 ipcRenderer.on('update_downloaded', () => {
   ipcRenderer.removeAllListeners('update_downloaded');
   message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
-  restartButton.classList.remove('hidden');
-  notification.classList.remove('hidden');
+  restartButton.classList.remove('disabled');
+  notification.show();
 });
 function closeNotification() {
-  notification.classList.add('hidden');
+  notification.hide();
 }
 function restartApp() {
   ipcRenderer.send('restart_app');
 }
-ipcMain.on('restart_app', () => {
-  autoUpdater.quitAndInstall();
-});
+function closeApp() {
+   ipcRenderer.send('close_app');
+}

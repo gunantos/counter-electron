@@ -2,10 +2,10 @@
  * @Author: Gunanto Simamora
  * @Date:   2020-10-25 15:02:09
  * @Last Modified by:   Your name
- * @Last Modified time: 2021-05-23 15:16:09
+ * @Last Modified time: 2021-05-23 16:09:55
  */
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, globalShortcut } = require("electron");
+const { app, BrowserWindow, globalShortcut, ipcMain } = require("electron");
 const path = require("path");
 const { autoUpdater } = require('electron-updater');
 
@@ -42,7 +42,6 @@ app.whenReady().then(() => {
   const ret = globalShortcut.register('F11', () => {
     return;
   })
-
   if (!ret) {
     console.log('registration failed')
   }
@@ -55,6 +54,15 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
+app.on("window-all-closed", function () {
+  globalShortcut.unregisterAll()
+  if (process.platform !== "darwin") app.quit();
+});
+
+ipcMain.on('app_version', (event) => {
+  event.sender.send('app_version', { version: app.getVersion() });
+});
+
 app.once('ready-to-show', () => {
   autoUpdater.checkForUpdatesAndNotify();
 });
@@ -66,13 +74,9 @@ autoUpdater.on('update-downloaded', () => {
   app.webContents.send('update_downloaded');
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on("window-all-closed", function () {
-  globalShortcut.unregisterAll()
-  if (process.platform !== "darwin") app.quit();
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+ipcMain.on('close_app', () => {
+  app.exit();
+});
