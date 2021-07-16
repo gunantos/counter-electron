@@ -5,7 +5,7 @@ var _listAntrian = [];
 var _listPengaturan = [];
 var _antrian = {
     tanggal: getNow(),
-    type: "GENOSE",
+    type: "VAKSIN",
     counter: 0
 };
 var _pengaturan = {
@@ -14,7 +14,7 @@ var _pengaturan = {
     max: 0,
     start: 1,
     width: 0,
-    type: "GENOSE"
+    type: "VAKSIN"
 };
 var myModal = document.getElementById('myModal')
 $(document).ready(function() {
@@ -77,7 +77,7 @@ function getPengaturan() {
             max: 0,
             start: 1,
             width: 0,
-            type: "GENOSE"
+            type: "VAKSIN"
         };
         _listPengaturan.push(_pengaturan);
          localStorage.setItem('listPengaturan', JSON.stringify(_listPengaturan));
@@ -93,6 +93,8 @@ function buildView() {
     var gambarButton = 'genose.png';
     if (_pengaturan.type.toUpperCase() == 'GENOSE') {
         gambarButton = 'genose.png';
+    } else if(_pengaturan.type.toUpperCase() == 'VAKSIN') {
+        gambarButton = 'rapid.svg';
     } else {
         gambarButton = 'rapid.svg';
     }
